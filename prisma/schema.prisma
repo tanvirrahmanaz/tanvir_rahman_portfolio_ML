@@ -1,0 +1,109 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ── Single admin user ──
+model User {
+  id       String @id @default(cuid())
+  email    String @unique
+  password String // bcrypt hash
+  name     String @default("Admin")
+}
+
+// ── Site-wide profile (singleton row, id = 1) ──
+model Profile {
+  id             Int     @id @default(1)
+  name           String  @default("Tanvir Rahman")
+  title          String  @default("AI Engineer")
+  typingLines    String[] @default(["I build machine learning models", "I train neural networks", "I turn data into intelligence"])
+  bio            String  @default("")
+  avatarUrl      String  @default("")
+  resumeUrl      String  @default("")
+  cvUrl          String  @default("")
+  email          String  @default("tanvirrahmanaz@gmail.com")
+  githubUsername String  @default("tanvirrahmanaz")
+  location       String  @default("Dhaka, Bangladesh")
+}
+
+model SocialLink {
+  id       String @id @default(cuid())
+  platform String // github | linkedin | youtube | twitter | facebook | custom...
+  label    String
+  url      String
+  order    Int    @default(0)
+}
+
+model Skill {
+  id       String @id @default(cuid())
+  name     String
+  logoUrl  String @default("")
+  category String @default("General") // e.g. ML/AI, Languages, Tools
+  order    Int    @default(0)
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  summary     String   @default("")
+  content     String   @default("") // markdown — details section
+  imageUrl    String   @default("")
+  liveUrl     String   @default("")
+  githubUrl   String   @default("")
+  techStack   String[] @default([])
+  featured    Boolean  @default(false)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model BlogPost {
+  id         String   @id @default(cuid())
+  title      String
+  slug       String   @unique
+  excerpt    String   @default("")
+  content    String   @default("") // markdown
+  coverImage String   @default("")
+  category   String   @default("General")
+  tags       String[] @default([])
+  published  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Education {
+  id          String @id @default(cuid())
+  institution String
+  degree      String
+  field       String @default("")
+  startYear   String
+  endYear     String @default("Present")
+  description String @default("")
+  order       Int    @default(0)
+}
+
+model Certification {
+  id            String @id @default(cuid())
+  title         String
+  issuer        String
+  date          String @default("")
+  credentialUrl String @default("")
+  imageUrl      String @default("")
+  order         Int    @default(0)
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String   @default("")
+  body      String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
