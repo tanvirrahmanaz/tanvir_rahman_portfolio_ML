@@ -56,7 +56,16 @@ npm run dev
 2. [vercel.com](https://vercel.com) → **Import** repo
 3. Environment Variables add korun (`.env` er shob value, kintu `NEXTAUTH_URL` hobe apnar live URL, jemon `https://tanvirrahmanaz.vercel.app`)
 4. **Supabase e Vercel er jonno:** connection string e **Transaction pooler** (port `6543`) use korun `DATABASE_URL` hishebe, ar `DIRECT_URL` e direct connection (port `5432`) rakhun — Supabase dashboard ei duita URL e dey
-5. Deploy 🎉
+5. Repo-te already `vercel.json` ache, tai Vercel deploy-er somoy `npm run vercel-build` cholbe:
+```bash
+prisma generate && prisma migrate deploy && next build
+```
+Eta production DB-te pending Prisma migration apply kore, tai `P2021` / `table does not exist` error ar hobe na.
+6. First production deploy-er por ekbar seed korun jate admin user ar demo content create hoy:
+```bash
+npm run db:seed
+```
+7. Deploy 🎉
 
 Custom domain (`tanvirrahmanaz.ai`) Vercel → Settings → Domains theke add korte parben.
 
