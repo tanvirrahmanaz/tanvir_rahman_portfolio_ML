@@ -21,8 +21,10 @@ async function main() {
     create: {
       id: 1,
       name: "Tanvir Rahman",
+      brandText: "Tanvir Rahman",
       title: "AI Engineer",
       bio: "AI Engineer focused on building intelligent systems that solve real problems. I work across the machine learning stack — from data pipelines and model training to deploying production-grade AI applications. Currently exploring deep learning, LLMs, and the systems that make them useful.",
+      heroBadgeText: "ai · ml · systems",
       email,
       githubUsername: "tanvirrahmanaz",
     },

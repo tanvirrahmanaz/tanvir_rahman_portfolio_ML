@@ -20,10 +20,12 @@ model User {
 model Profile {
   id             Int     @id @default(1)
   name           String  @default("Tanvir Rahman")
+  brandText      String  @default("Tanvir Rahman")
   title          String  @default("AI Engineer")
   typingLines    String[] @default(["I build machine learning models", "I train neural networks", "I turn data into intelligence"])
   bio            String  @default("")
   avatarUrl      String  @default("")
+  heroBadgeText  String  @default("ai · ml · systems")
   resumeUrl      String  @default("")
   cvUrl          String  @default("")
   email          String  @default("tanvirrahmanaz@gmail.com")

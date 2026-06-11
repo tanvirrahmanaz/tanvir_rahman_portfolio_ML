@@ -1,10 +1,12 @@
 export type ProfileData = {
   id: number;
   name: string;
+  brandText: string;
   title: string;
   typingLines: string[];
   bio: string;
   avatarUrl: string;
+  heroBadgeText: string;
   resumeUrl: string;
   cvUrl: string;
   email: string;

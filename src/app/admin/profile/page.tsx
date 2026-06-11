@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Plus, Trash2, Save } from "lucide-react";
 import { inputCls, Field, Button, Toast } from "@/components/admin/ui";
 import { ImageInput } from "@/components/admin/image-input";
+import { DocumentInput } from "@/components/admin/document-input";
 import { TagInput } from "@/components/admin/tag-input";
 import type { ProfileData, SocialLinkData } from "@/types";
 
@@ -74,6 +75,14 @@ export default function ProfileAdminPage() {
             <Field label="Name"><input className={inputCls} value={profile.name} onChange={(e) => set("name", e.target.value)} /></Field>
             <Field label="Title"><input className={inputCls} value={profile.title} onChange={(e) => set("title", e.target.value)} /></Field>
           </div>
+          <div className="grid sm:grid-cols-2 gap-4">
+            <Field label="Navbar brand text" hint="Example: tanvir.ai or your own brand name.">
+              <input className={inputCls} value={profile.brandText} onChange={(e) => set("brandText", e.target.value)} />
+            </Field>
+            <Field label="Hero image badge text" hint="This shows under your profile image on the homepage.">
+              <input className={inputCls} value={profile.heroBadgeText} onChange={(e) => set("heroBadgeText", e.target.value)} />
+            </Field>
+          </div>
           <Field label="Typing animation lines" hint="Each chip becomes one line in the hero typing effect.">
             <TagInput value={profile.typingLines} onChange={(v) => set("typingLines", v)} placeholder="e.g. I build neural networks" />
           </Field>
@@ -82,9 +91,12 @@ export default function ProfileAdminPage() {
           </Field>
           <ImageInput label="Avatar (leave empty to show initials)" value={profile.avatarUrl} onChange={(v) => set("avatarUrl", v)} />
           <div className="grid sm:grid-cols-2 gap-4">
-            <Field label="Resume URL" hint="Google Drive / any public PDF link.">
-              <input className={inputCls} value={profile.resumeUrl} onChange={(e) => set("resumeUrl", e.target.value)} />
-            </Field>
+            <DocumentInput
+              label="Resume"
+              hint="Upload a PDF from your device, or paste any public PDF URL."
+              value={profile.resumeUrl}
+              onChange={(v) => set("resumeUrl", v)}
+            />
             <Field label="CV URL">
               <input className={inputCls} value={profile.cvUrl} onChange={(e) => set("cvUrl", e.target.value)} />
             </Field>

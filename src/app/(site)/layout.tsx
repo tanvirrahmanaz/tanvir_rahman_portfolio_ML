@@ -12,7 +12,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar resumeUrl={profile?.resumeUrl ?? ""} name={profile?.name ?? "Tanvir Rahman"} />
+      <Navbar resumeUrl={profile?.resumeUrl ?? ""} brandText={profile?.brandText ?? "Tanvir Rahman"} />
       <main className="flex-1">{children}</main>
       <Footer name={profile?.name ?? "Tanvir Rahman"} links={links} />
     </div>

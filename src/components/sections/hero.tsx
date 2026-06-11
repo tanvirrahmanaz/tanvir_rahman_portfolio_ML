@@ -7,10 +7,11 @@ import type { ProfileData, SocialLinkData } from "@/types";
 export function Hero({ profile, links }: { profile: ProfileData; links: SocialLinkData[] }) {
   const initials = profile.name
     .split(" ")
-    .map((w) => w[0])
+    .map((word) => word[0])
     .join("")
     .slice(0, 2)
     .toUpperCase();
+  const isInlineResume = profile.resumeUrl.startsWith("data:");
 
   return (
     <section className="dot-grid border-b border-line">
@@ -42,8 +43,9 @@ export function Hero({ profile, links }: { profile: ProfileData; links: SocialLi
               {profile.resumeUrl && (
                 <a
                   href={profile.resumeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target={isInlineResume ? undefined : "_blank"}
+                  rel={isInlineResume ? undefined : "noopener noreferrer"}
+                  download="Tanvir-Rahman-Resume.pdf"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-ink-950 text-ink-50 dark:bg-ink-50 dark:text-ink-950 text-sm font-medium hover:opacity-85 hover:-translate-y-0.5 transition-all"
                 >
                   <FileDown size={15} /> Resume
@@ -75,7 +77,7 @@ export function Hero({ profile, links }: { profile: ProfileData; links: SocialLi
               )}
             </div>
             <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-ink-950 text-ink-50 dark:bg-ink-50 dark:text-ink-950 text-[11px] font-mono whitespace-nowrap">
-              ai · ml · systems
+              {profile.heroBadgeText}
             </div>
           </div>
         </FadeIn>

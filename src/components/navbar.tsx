@@ -14,16 +14,16 @@ const LINKS = [
   { href: "/#contact", label: "Contact" },
 ];
 
-export function Navbar({ resumeUrl, name }: { resumeUrl: string; name: string }) {
+export function Navbar({ resumeUrl, brandText }: { resumeUrl: string; brandText: string }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const isInlineResume = resumeUrl.startsWith("data:");
 
   return (
     <header className="sticky top-0 z-50 backdrop-blur-md bg-[rgb(var(--bg)/0.8)] border-b border-line">
       <nav className="max-w-5xl mx-auto px-5 h-16 flex items-center justify-between">
         <Link href="/" className="font-display font-semibold tracking-tight text-lg">
-          {name.split(" ")[0].toLowerCase()}
-          <span className="text-muted">.ai</span>
+          {brandText}
         </Link>
 
         <div className="hidden md:flex items-center gap-7">
@@ -42,8 +42,9 @@ export function Navbar({ resumeUrl, name }: { resumeUrl: string; name: string })
           {resumeUrl && (
             <a
               href={resumeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+              target={isInlineResume ? undefined : "_blank"}
+              rel={isInlineResume ? undefined : "noopener noreferrer"}
+              download="Tanvir-Rahman-Resume.pdf"
               className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-full bg-ink-950 text-ink-50 dark:bg-ink-50 dark:text-ink-950 hover:opacity-85 transition-opacity"
             >
               <FileDown size={14} /> Resume
@@ -68,7 +69,13 @@ export function Navbar({ resumeUrl, name }: { resumeUrl: string; name: string })
             </Link>
           ))}
           {resumeUrl && (
-            <a href={resumeUrl} target="_blank" rel="noopener noreferrer" className="text-sm inline-flex items-center gap-1.5">
+            <a
+              href={resumeUrl}
+              target={isInlineResume ? undefined : "_blank"}
+              rel={isInlineResume ? undefined : "noopener noreferrer"}
+              download="Tanvir-Rahman-Resume.pdf"
+              className="text-sm inline-flex items-center gap-1.5"
+            >
               <FileDown size={14} /> Resume
             </a>
           )}

@@ -6,3 +6,8 @@ out
 .DS_Store
 *.tsbuildinfo
 next-env.d.ts
+.cloudflared.log
+.next-start.err
+.next-start.log
+.pgdata/
+.tmp-is-a-dev/
