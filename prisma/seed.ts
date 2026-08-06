@@ -58,47 +58,101 @@ async function main() {
     });
   }
 
-  // ── Demo projects ──
-  if ((await prisma.project.count()) === 0) {
-    await prisma.project.createMany({
-      data: [
-        {
-          title: "Image Classification Pipeline",
-          slug: "image-classification-pipeline",
-          summary: "End-to-end CNN pipeline for multi-class image classification with training dashboards and a deployed inference API.",
-          content: "## Overview\n\nA production-style image classification system built with PyTorch.\n\n## Highlights\n\n- Custom CNN + transfer learning (ResNet-50)\n- Data augmentation and experiment tracking\n- FastAPI inference endpoint with Docker deployment\n\n## What I learned\n\nHandling class imbalance and serving models at low latency.",
-          imageUrl: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=1200&q=80",
-          githubUrl: "https://github.com/tanvirrahmanaz",
-          liveUrl: "",
-          techStack: ["PyTorch", "FastAPI", "Docker"],
-          featured: true,
-          order: 0,
-        },
-        {
-          title: "Sentiment Analyzer for Bangla Text",
-          slug: "bangla-sentiment-analyzer",
-          summary: "NLP model that classifies Bangla social media text into positive, negative and neutral sentiment.",
-          content: "## Overview\n\nFine-tuned a multilingual transformer on a custom-labeled Bangla dataset.\n\n## Highlights\n\n- Data collection + cleaning pipeline\n- Fine-tuned mBERT, 89% F1\n- Simple web demo with live predictions",
-          imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=80",
-          githubUrl: "https://github.com/tanvirrahmanaz",
-          liveUrl: "",
-          techStack: ["Transformers", "Python", "Hugging Face"],
-          featured: true,
-          order: 1,
-        },
-        {
-          title: "ML Model Monitoring Dashboard",
-          slug: "ml-monitoring-dashboard",
-          summary: "Dashboard that tracks model drift, latency and prediction quality for deployed ML services.",
-          content: "## Overview\n\nA monitoring layer for ML services with alerts on data drift.\n\n## Highlights\n\n- Drift detection with statistical tests\n- Real-time charts\n- Slack alert integration",
-          imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80",
-          githubUrl: "https://github.com/tanvirrahmanaz",
-          liveUrl: "",
-          techStack: ["Next.js", "PostgreSQL", "Python"],
-          featured: true,
-          order: 2,
-        },
-      ],
+  // ── Real projects from Tanvir's GitHub ──
+  const projects = [
+    {
+      title: "SMS Spam Classifier",
+      slug: "sms-spam-classifier",
+      summary: "An NLP web application that classifies text messages as spam or legitimate using a trained machine-learning model.",
+      content: "## Overview\n\nA practical machine-learning application for detecting spam messages from user-provided text. The project combines NLP preprocessing, a scikit-learn classification pipeline, and a simple Streamlit interface.\n\n## Highlights\n\n- Text cleaning and NLP preprocessing\n- Spam-versus-ham classification\n- Interactive browser-based prediction interface\n- Public deployment for live testing",
+      imageUrl: "https://opengraph.githubassets.com/1/tanvirrahmanaz/SMS-Spam-Classifier-Model",
+      githubUrl: "https://github.com/tanvirrahmanaz/SMS-Spam-Classifier-Model",
+      liveUrl: "https://sms-spam-classifier-model.onrender.com/",
+      techStack: ["Python", "scikit-learn", "NLTK", "Streamlit"],
+      featured: true,
+      order: 0,
+    },
+    {
+      title: "Topic Modeling",
+      slug: "topic-modeling",
+      summary: "A natural-language-processing project that explores hidden themes and patterns inside collections of text.",
+      content: "## Overview\n\nA notebook-based NLP project focused on topic-modeling workflows and exploratory analysis of textual datasets.\n\n## Highlights\n\n- Text preparation and preprocessing\n- Topic discovery experiments\n- Exploratory NLP analysis\n- Reproducible notebook workflow",
+      imageUrl: "https://opengraph.githubassets.com/1/tanvirrahmanaz/Topic_modeling",
+      githubUrl: "https://github.com/tanvirrahmanaz/Topic_modeling",
+      liveUrl: "",
+      techStack: ["Python", "NLP", "Topic Modeling", "Jupyter"],
+      featured: true,
+      order: 1,
+    },
+    {
+      title: "Machine Learning Project Collection",
+      slug: "machine-learning-project-collection",
+      summary: "A collection of machine-learning notebooks and experiments covering data preparation, model training, and evaluation.",
+      content: "## Overview\n\nA growing collection of practical machine-learning work used to explore datasets, prepare features, train models, and evaluate results.\n\n## Highlights\n\n- Data cleaning and exploratory analysis\n- Feature preparation\n- Model-training experiments\n- Evaluation and comparison workflows",
+      imageUrl: "https://opengraph.githubassets.com/1/tanvirrahmanaz/ML_project",
+      githubUrl: "https://github.com/tanvirrahmanaz/ML_project",
+      liveUrl: "",
+      techStack: ["Python", "scikit-learn", "Pandas", "Jupyter"],
+      featured: true,
+      order: 2,
+    },
+    {
+      title: "Deep Learning Lab",
+      slug: "deep-learning-lab",
+      summary: "Hands-on deep-learning experiments for building an understanding of neural networks and model-training workflows.",
+      content: "## Overview\n\nA learning-focused repository containing deep-learning experiments and notebooks. It documents practical work with neural-network concepts and training workflows.\n\n## Highlights\n\n- Neural-network experimentation\n- Model-training practice\n- Notebook-based learning workflow\n- Ongoing deep-learning study",
+      imageUrl: "https://opengraph.githubassets.com/1/tanvirrahmanaz/Deep-Learning",
+      githubUrl: "https://github.com/tanvirrahmanaz/Deep-Learning",
+      liveUrl: "",
+      techStack: ["Python", "Deep Learning", "Neural Networks", "Jupyter"],
+      featured: true,
+      order: 3,
+    },
+    {
+      title: "Room Mate Finder",
+      slug: "room-mate-finder",
+      summary: "A full-stack platform for publishing room listings and helping users search, filter, save, and connect with potential roommates.",
+      content: "## Overview\n\nA responsive full-stack roommate-finding platform with secure authentication, room-listing management, advanced filtering, favorites, and owner contact features.\n\n## Highlights\n\n- JWT authentication and protected APIs\n- Room-listing CRUD and availability tracking\n- Search, sorting, filtering, and pagination\n- Favorites and owner-contact flow\n- Separate React client and Express API\n\n## Repositories\n\n- [Client](https://github.com/tanvirrahmanaz/room-mate-finder-client)\n- [Server](https://github.com/tanvirrahmanaz/room-mate-finder-server)",
+      imageUrl: "https://opengraph.githubassets.com/1/tanvirrahmanaz/room-mate-finder-client",
+      githubUrl: "https://github.com/tanvirrahmanaz/room-mate-finder-client",
+      liveUrl: "https://room-mate-finderbd.web.app/",
+      techStack: ["React", "Tailwind CSS", "Express", "MongoDB"],
+      featured: true,
+      order: 4,
+    },
+    {
+      title: "CourseFlow",
+      slug: "courseflow",
+      summary: "A full-stack course-management platform where students enroll in courses and instructors securely manage their own content.",
+      content: "## Overview\n\nCourseFlow provides separate student and instructor experiences. Students can discover and enroll in courses, while instructors can create, update, and delete courses through a protected dashboard.\n\n## Highlights\n\n- Firebase email-and-password authentication\n- JWT-protected backend endpoints\n- Course search and detailed course pages\n- Enrollment management with seat limits\n- Instructor-owned course CRUD\n- Responsive interface and live deployment",
+      imageUrl: "https://opengraph.githubassets.com/1/tanvirrahmanaz/course-management",
+      githubUrl: "https://github.com/tanvirrahmanaz/course-management",
+      liveUrl: "https://course-management-bd.web.app/",
+      techStack: ["React", "Firebase", "Express", "MongoDB"],
+      featured: true,
+      order: 5,
+    },
+  ];
+
+  // Remove the placeholder projects that shipped with the template.
+  await prisma.project.deleteMany({
+    where: {
+      slug: {
+        in: [
+          "image-classification-pipeline",
+          "bangla-sentiment-analyzer",
+          "ml-monitoring-dashboard",
+        ],
+      },
+    },
+  });
+
+  // Upsert real projects so rerunning the seed also updates an existing database.
+  for (const project of projects) {
+    await prisma.project.upsert({
+      where: { slug: project.slug },
+      update: project,
+      create: project,
     });
   }
 
