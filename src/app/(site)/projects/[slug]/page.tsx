@@ -4,11 +4,25 @@ import { ArrowLeft, ArrowUpRight, Github } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { Markdown } from "@/components/markdown";
 import { formatDate } from "@/lib/utils";
+import { fallbackProjects } from "@/lib/fallback-portfolio";
+import type { ProjectData } from "@/types";
 
 export const dynamic = "force-dynamic";
 
+async function loadProject(slug: string): Promise<ProjectData | null> {
+  const fallbackProject = fallbackProjects.find((project) => project.slug === slug) ?? null;
+
+  try {
+    const project = await prisma.project.findUnique({ where: { slug } });
+    return project ? JSON.parse(JSON.stringify(project)) : fallbackProject;
+  } catch (error) {
+    console.error(`[portfolio/project/${slug}] Database unavailable; using fallback data.`, error);
+    return fallbackProject;
+  }
+}
+
 export default async function ProjectDetailPage({ params }: { params: { slug: string } }) {
-  const project = await prisma.project.findUnique({ where: { slug: params.slug } });
+  const project = await loadProject(params.slug);
   if (!project) notFound();
 
   return (
@@ -35,8 +49,8 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
       </div>
 
       <div className="flex flex-wrap gap-1.5 mt-6">
-        {project.techStack.map((t) => (
-          <span key={t} className="text-[11px] font-mono px-2 py-0.5 rounded-full border border-line text-muted">{t}</span>
+        {project.techStack.map((technology) => (
+          <span key={technology} className="text-[11px] font-mono px-2 py-0.5 rounded-full border border-line text-muted">{technology}</span>
         ))}
       </div>
 
